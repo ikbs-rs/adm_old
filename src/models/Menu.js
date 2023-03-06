@@ -7,7 +7,6 @@ const findMenu = async (module) => {
     "SELECT * FROM menu WHERE module = ? ORDER BY id ASC",
     [module]
   );
-  console.log(rows);
   const menuData = unflatten(rows);
   return menuData;
 };

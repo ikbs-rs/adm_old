@@ -1,5 +1,6 @@
 import express from 'express'
 
+import abstruct from './models/abstruct.js'
 import menu from './models/menu.js'
 import module from './models/module.js'
 import dbparametar from './models/dbparametar.js'
@@ -17,9 +18,12 @@ router.use('/', (req, res, next) => {
   next();
 });
 
-router.use('/adm/menu', menu)
-router.use('/adm/module', module)
-router.use('/adm/dbparametar', dbparametar)
+router.use('/adm/menu', abstruct)
+router.use('/adm/module', abstruct)
+router.use('/adm/dbparameter', abstruct)
+router.use('/adm/message', abstruct)
+router.use('/adm/dbmserr', abstruct)
+router.use('/adm/kordomensifra', abstruct)
 
 router.use("/", (req, res, next) => {
   return res.status(403).send({ error: "Forbidden!!" });

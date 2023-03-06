@@ -1,33 +1,13 @@
 import express from "express";
-import abstructController from "../../controllers/abstructController.js";
 import menuController from "../../controllers/menuController.js";
 
 const router = express.Router();
 
-router.use("/", (req, res, next) => {
-  const urlParts = req.url.split("/");
-  req.objName2 = urlParts[1];
-
-  if (req.objName == req.objName2) {
-    router.get("/menu/:module", menuController.getMenu);
-  } else {
-    router.get("/", abstructController.getAll);
-    router.get("/:id", abstructController.getById);
-    router.post("/", abstructController.add);
-    router.put("/", abstructController.update);
-    router.delete("/:id", abstructController.remove);
-
-    req.objItem = urlParts[2];
-    router.get(`/get/${req.objItem}/:id`, abstructController.getItem);
-    router.put(`/set/${req.objItem}`, abstructController.setItem);
-    //   Mora se proslediti sledeci json za SETOVANJE *********** {"id": 1627113837566496768, "value": 1} *******
-  }
-  next();
-});
+router.get("/:module", menuController.getMenu);
 
 export default router;
 
-/**  Da ne zaboravi kada kocu da se igram u samom ruteru, a da mi controler ne vraca RES
+/**  Da ne zaboravi kada hocu da se igram u samom ruteru, a da mi controler ne vraca RES
  * 
  router.get("/", async (req, res) => {
   const urlParts = req.url.split("/");
