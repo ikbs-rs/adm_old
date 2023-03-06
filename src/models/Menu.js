@@ -4,9 +4,10 @@ import { unflatten, uniqueId } from "../middleware/utility.js";
 //find Menu function
 const findMenu = async (module) => {
   const [rows] = await db.query(
-    "SELECT * FROM menu WHERE module = ? ORDER BY `id` ASC",
+    "SELECT * FROM menu WHERE module = ? ORDER BY id ASC",
     [module]
   );
+  console.log(rows);
   const menuData = unflatten(rows);
   return menuData;
 };

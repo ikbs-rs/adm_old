@@ -18,8 +18,8 @@ const find = async (objName) => {
 };
 
 //find by id function
-const findById = async (id) => {
-  const [rows] = await db.query("SELECT * FROM menu WHERE id = ?", [id]);
+const findById = async (objName, id) => {
+  const [rows] = await db.query(`SELECT * FROM ${objName} WHERE id = ?`, [id]);
   return rows[0];
 };
 
@@ -30,9 +30,9 @@ const update = async (sqlQuery) => {
 };
 
 //delete function
-const remove = async (id) => {
+const remove = async (objName, id) => {
   try {
-    const [result] = await db.query("DELETE FROM menu WHERE id = ?", [id]);
+    const [result] = await db.query(`DELETE FROM ${objName} WHERE id = ?`, [id]);
     return result;
   } catch (err) {
     throw new Error(err);
@@ -40,16 +40,16 @@ const remove = async (id) => {
 };
 
 //find Item by id function
-const findItem = async (id, item) => {
-  const sqlString = `SELECT ${item} FROM menu WHERE id = ${id}`;
+const findItem = async (objName, item, id) => {
+  const sqlString = `SELECT ${item} FROM ${objName} WHERE id = ${id}`;
   const [rows] = await db.query(sqlString);
   return rows[0];
 };
 
 //find Item by id function
-const setItem = async (items, item) => {
+const setItem = async (objName, item, items) => {
   const value = typeof items.value === 'string' ? `"${items.value}"` : items.value;
-  const sqlString = `UPDATE menu set ${item} = ${value}  WHERE id = ${items.id}`;
+  const sqlString = `UPDATE ${objName} set ${item} = ${value}  WHERE id = ${items.id}`;
   const [rows] = await db.query(sqlString);
   return rows[0];
 };

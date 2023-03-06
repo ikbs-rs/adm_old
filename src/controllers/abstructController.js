@@ -14,8 +14,8 @@ const getAll = async (req, res) => {
 
 const getById = async (req, res) => {
   try {
-    const item = await abstractModel.findById(req.params.id);
-    res.status(200).json({ item });
+    const item = await abstractModel.findById( req.objName, req.params.id);
+    res.status(200).json({ item }); 
   } catch (err) {
     res.status(500).json({ message: "Doslo je do greske", error: err.message });
   }
@@ -46,7 +46,7 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
   try {
-    const item = await abstractModel.remove(req.params.id);
+    const item = await abstractModel.remove(req.objName, req.params.id);
     res.status(200).json({ message: "Stavka menija uspesno obrisana", item });
   } catch (err) {
     res.status(500).json({ message: "Doslo je do greske c: ", error: err.message });
@@ -56,7 +56,7 @@ const remove = async (req, res) => {
 /******************************** */
 const getItem = async (req, res) => {
   try {
-    const item = await abstractModel.findItem(req.params.id, req.objItem);
+    const item = await abstractModel.findItem(req.objName, req.objItem, req.params.id);
     res.status(200).json({ item });
   } catch (err) {
     res.status(500).json({ message: "Doslo je do greske", error: err.message });
@@ -65,7 +65,7 @@ const getItem = async (req, res) => {
 
 const setItem = async (req, res) => {
  try {
-    const item = await abstractModel.setItem(req.body, req.objItem);
+    const item = await abstractModel.setItem(req.objName, req.objItem, req.body);
     res.status(200).json({ message: "Item uspesno setovan", item });
   } catch (err) {
     res.status(500).json({ message: "Doslo je do greske c: ", error: err.message });

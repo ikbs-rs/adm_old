@@ -8,10 +8,11 @@ const router = express.Router();
 
 router.use(express.json())
 
-// Dohvatam iz URL-a, koju tabelu obradjujen jer se ona nalazi iza naziva modula
-// Ovde je to .../adm/menu/... adm je modul a menu je tabela
+
 router.use('/', (req, res, next) => {
   const urlParts = req.url.split("/");
+// Dohvatam iz URL-a, koju tabelu obradjujen i setuje --- req.objName ****** TABELU
+// Ovde je to .../adm/menu/... adm je modul a menu je tabela
   req.objName = urlParts[2];
   next();
 });
