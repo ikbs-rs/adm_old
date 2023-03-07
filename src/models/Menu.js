@@ -1,5 +1,5 @@
 import db from "../db/db.js";
-import { unflatten, uniqueId } from "../middleware/utility.js";
+import { unflatten } from "../middleware/utility.js";
 
 //find Menu function
 const findMenu = async (module) => {

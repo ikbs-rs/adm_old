@@ -1,6 +1,7 @@
 import express from "express";
 import abstructController from "../../controllers/abstructController.js";
 import menu from './menu.js'
+import { checkPermissions } from '../../middleware/utilityHttp.js'
 
 const router = express.Router();
 
@@ -13,13 +14,13 @@ router.use("/", (req, res, next) => {
   } else {
     router.get("/", abstructController.getAll);
     router.get("/:id", abstructController.getById);
-    router.post("/", abstructController.add);
-    router.put("/", abstructController.update);
-    router.delete("/:id", abstructController.remove);
+    router.post("/", checkPermissions('C'), abstructController.add);
+    router.put("/", checkPermissions('U'), abstructController.update);
+    router.delete("/:id", checkPermissions('D'), abstructController.remove);
 
     req.objItem = urlParts[2];
     router.get(`/get/${req.objItem}/:id`, abstructController.getItem);
-    router.put(`/set/${req.objItem}`, abstructController.setItem);
+    router.put(`/set/${req.objItem}`, checkPermissions('U'), abstructController.setItem);
     //Mora se proslediti sledeci json za SETOVANJE *********** {"id": 1627113837566496768, "value": 1} *******
   }
   next();
