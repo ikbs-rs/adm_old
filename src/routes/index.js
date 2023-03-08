@@ -1,9 +1,12 @@
 import express from 'express'
 
 import abstruct from './models/abstruct.js'
-import { checkPermissions } from '../middleware/utilityHttp.js'
+import { checkPermissions } from '../security/guards/role.js'
+import { checkJwt } from '../security/interceptors.js'
 
 const router = express.Router();
+
+router.use(checkJwt); // provera JWT tokena na svakom zahtevu
 
 router.use(express.json())
 
@@ -17,11 +20,11 @@ router.use('/', (req, res, next) => {
 });
 
 router.use('/adm/menu', checkPermissions(), abstruct)
-router.use('/adm/module', checkPermissions, abstruct)
-router.use('/adm/dbparameter', checkPermissions, abstruct)
-router.use('/adm/message', checkPermissions, abstruct)
-router.use('/adm/dbmserr', checkPermissions, abstruct)
-router.use('/adm/kordomensifra', checkPermissions, abstruct)
+router.use('/adm/module', checkPermissions(), abstruct)
+router.use('/adm/dbparameter', checkPermissions(), abstruct)
+router.use('/adm/message', checkPermissions(), abstruct)
+router.use('/adm/dbmserr', checkPermissions(), abstruct)
+router.use('/adm/kordomensifra', checkPermissions(), abstruct)
 
 router.use("/", (req, res, next) => {
   return res.status(403).send({ error: "Forbidden!!" });

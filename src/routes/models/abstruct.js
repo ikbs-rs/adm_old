@@ -1,7 +1,7 @@
 import express from "express";
 import abstructController from "../../controllers/abstructController.js";
 import menu from './menu.js'
-import { checkPermissions } from '../../middleware/utilityHttp.js'
+import { checkPermissions } from '../../security/guards/role.js'
 
 const router = express.Router();
 
